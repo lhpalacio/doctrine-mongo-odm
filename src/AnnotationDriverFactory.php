@@ -33,7 +33,10 @@ class AnnotationDriverFactory extends AbstractFactory
         }
 
         try {
-            return AnnotationDriver::create($options[AnnotationDriver::class]['documents_dir']);
+            $driver = AnnotationDriver::create($options[AnnotationDriver::class]['documents_dir']);
+            AnnotationDriver::registerAnnotationClasses();
+
+            return $driver;
         } catch (\Exception $e) {
             throw new InvalidConfigException($e->getMessage());
         }
